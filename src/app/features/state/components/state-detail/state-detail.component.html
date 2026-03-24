@@ -1,0 +1,18 @@
+<h2>Novo</h2>
+<form [formGroup]="formGroup">
+  <div class="ticket-textarea">
+    <mat-form-field>
+      <mat-label>Nome</mat-label>
+      <input matInput type="text" maxlength="256" formControlName="name" required autoFocus>
+      <mat-error validator></mat-error>
+    </mat-form-field>
+    <div class="flex justify-content-end flex-wrap column-gap-2 row-gap-2 mt-2">
+      <button mat-button type="button"
+              [disabled]="!formGroup.valid"
+              (click)="saveOrUpdate()">Salvar
+      </button>
+      <button mat-button type="button" id="cancel">Cancelar
+      </button>
+    </div>
+  </div>
+</form>
