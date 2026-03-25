@@ -1,70 +1,33 @@
 <mat-toolbar color="primary">
-  <button mat-button routerLink="/">Home</button>
-  <span class="spacer"></span>
-  <button mat-button routerLink="/state">
-    <mat-icon fontIcon="search"></mat-icon>Listagem Estado</button>
-  <button mat-button routerLink="/state/create">
-    <mat-icon fontIcon="feed"></mat-icon>Novo Estado</button>
+  <button mat-icon-button (click)="drawer.toggle()" aria-label="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Frameworks para o Front-end de Aplicações Web</span>
+  <span class="example-spacer"></span>
 </mat-toolbar>
-<div style="min-height: 600px;text-align: center;">
-  <router-outlet></router-outlet>
-</div>
 
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" opened="true" mode="side" position="start">
+    <mat-nav-list class="overflow-y-auto overflow-x-hidden">
+      <a mat-list-item routerLink="">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </a>
+      <a mat-list-item routerLink="/state">
+        <mat-icon>analytics</mat-icon>
+        <span>Estados</span>
+      </a>
+      <a mat-list-item routerLink="/produto">
+        <mat-icon>analytics</mat-icon>
+        <span>Produto</span>
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div style="min-height: 600px;text-align: center;">
+      <router-outlet></router-outlet>
+    </div>
 
-<!--<mat-toolbar color="primary">-->
-<!--  <button mat-icon-button (click)="drawer.toggle()" aria-label="menu">-->
-<!--    <mat-icon>menu</mat-icon>-->
-<!--  </button>-->
+  </mat-drawer-content>
 
-<!--  <span>Frameworks para o Front-end de Aplicações Web</span>-->
-<!--  <span class="example-spacer"></span>-->
-
-
-<!--</mat-toolbar>-->
-
-<!--<mat-drawer-container class="example-container" autosize>-->
-<!--  <mat-drawer #drawer class="example-sidenav" opened="true" mode="side" position="start">-->
-<!--    <mat-nav-list class="overflow-y-auto overflow-x-hidden">-->
-<!--      <a mat-list-item routerLink="">-->
-<!--        <mat-icon>home</mat-icon>-->
-<!--        <span>Home</span>-->
-<!--      </a>-->
-
-<!--      <a mat-list-item routerLink="analytics">-->
-<!--        <mat-icon>analytics</mat-icon>-->
-<!--        <span>Dashboard</span>-->
-<!--      </a>-->
-
-<!--      <a mat-list-item routerLink="/produtos">-->
-<!--        <mat-icon>analytics</mat-icon>-->
-<!--        <span>Estados</span>-->
-<!--      </a>-->
-
-<!--      &lt;!&ndash; MENU EXPANSÍVEL &ndash;&gt;-->
-<!--&lt;!&ndash;      <mat-expansion-panel class="no-shadow">&ndash;&gt;-->
-<!--&lt;!&ndash;        <mat-expansion-panel-header>&ndash;&gt;-->
-<!--&lt;!&ndash;          <mat-icon>settings</mat-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;          <span style="margin-left: 8px;">Dados básicos</span>&ndash;&gt;-->
-<!--&lt;!&ndash;        </mat-expansion-panel-header>&ndash;&gt;-->
-
-<!--&lt;!&ndash;        <mat-nav-list>&ndash;&gt;-->
-<!--&lt;!&ndash;          <a mat-list-item routerLink="produtos">&ndash;&gt;-->
-<!--&lt;!&ndash;            <span>Produtos</span>&ndash;&gt;-->
-<!--&lt;!&ndash;          </a>&ndash;&gt;-->
-
-<!--&lt;!&ndash;          <a mat-list-item routerLink="categorias">&ndash;&gt;-->
-<!--&lt;!&ndash;            <span>Categorias</span>&ndash;&gt;-->
-<!--&lt;!&ndash;          </a>&ndash;&gt;-->
-<!--&lt;!&ndash;        </mat-nav-list>&ndash;&gt;-->
-
-<!--&lt;!&ndash;      </mat-expansion-panel>&ndash;&gt;-->
-<!--    </mat-nav-list>-->
-<!--  </mat-drawer>-->
-<!--  <mat-drawer-content>-->
-<!--    <div style="min-height: 600px;text-align: center;">-->
-<!--      <router-outlet></router-outlet>-->
-<!--    </div>-->
-
-<!--  </mat-drawer-content>-->
-
-<!--</mat-drawer-container>-->
+</mat-drawer-container>

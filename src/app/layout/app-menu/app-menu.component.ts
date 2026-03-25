@@ -10,8 +10,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 @Component({
   selector: 'app-app-menu',
   imports: [
-    RouterOutlet,
     RouterLink,
+    RouterOutlet,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,

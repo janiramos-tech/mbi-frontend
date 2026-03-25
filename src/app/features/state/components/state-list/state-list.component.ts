@@ -6,12 +6,12 @@ import {StateDto} from '../../models/state.dto';
 import {MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
-import {MatIconButton} from '@angular/material/button';
+import {MatFabButton, MatIconButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-state-list',
   standalone: true,
-  imports: [MatTableModule, MatIconModule, MatCardModule, MatIconButton],
+  imports: [MatTableModule, MatIconModule, MatCardModule, MatIconButton, MatFabButton],
   templateUrl: './state-list.component.html',
   styleUrl: './state-list.component.scss'
 })
