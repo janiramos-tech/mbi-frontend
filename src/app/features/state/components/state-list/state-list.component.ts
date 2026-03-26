@@ -7,6 +7,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatFabButton, MatIconButton} from '@angular/material/button';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogComponent} from '../../../../shared/dialog/dialog.component';
+import {takeUntil} from 'rxjs';
 
 @Component({
   selector: 'app-state-list',
@@ -23,6 +26,7 @@ export class StateListComponent implements OnInit{
   displayedColumns: string[] = ['id', 'name', 'acoes'];
   filter = '';
   stateList: StateDto[] = [];
+  private readonly dialog= inject(MatDialog);
 
   ngOnInit() {
     this.loadData();
@@ -37,17 +41,31 @@ export class StateListComponent implements OnInit{
     });
   }
 
-  deleteProduct(id: number): void {
-    if (confirm('Tem certeza que deseja excluir este produto?')) {
-      // CORREÇÃO: Não passe o endpoint, apenas o ID.
-      this.stateService.delete(id).subscribe({
-        next: () => {
-          console.log('Produto excluído com sucesso');
-          this.loadData(); // Recarrega a lista
-        },
-        error: (err) => console.error('Erro ao excluir:', err)
-      });
-    }
+  openDeleteDialog(id: number): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: "600px",
+      data: {
+        message: "Excluir Estado",
+        description: "Tem certeza que deseja excluir este estado? Esta ação não pode ser desfeita.",
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteItem(id);
+      } else {
+        console.log('Exclusão cancelada pelo usuário');
+      }
+    });
+  }
+
+  deleteItem(id: number): void {
+    this.stateService.delete(id).subscribe({
+      next: () => {
+        console.log('Produto excluído com sucesso');
+        this.loadData(); // Recarrega a lista
+      },
+      error: (err) => console.error('Erro ao excluir:', err)
+    });
   }
 
   updateProduct(idState: number): void {
