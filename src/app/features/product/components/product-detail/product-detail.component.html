@@ -1,0 +1,54 @@
+<div class="flex justify-content-center flex-wrap">
+  <mat-card class="w-7 py-3" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title class="flex justify-content-start flex-wrap">Produto</mat-card-title>
+      <mat-card-subtitle>Formulário para criar/editar Produto</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div>
+        <form [formGroup]="formGroup" class="py-3">
+          <div class="flex flex-column">
+            <mat-form-field>
+              <mat-label>Nome</mat-label>
+              <input matInput type="text" maxlength="256" formControlName="name" required autoFocus>
+              <mat-error validator></mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Preço de custo</mat-label>
+              <input matInput type="number" maxlength="256" formControlName="cost_price" required autoFocus>
+              <mat-error validator></mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Preço de venda</mat-label>
+              <input matInput type="number" maxlength="256" formControlName="sale_price" required autoFocus>
+              <mat-error validator></mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Fornecedor</mat-label>
+              <mat-select formControlName="supplier" required>
+                @for (su of supplierList; track su.url) {
+                <mat-option [value]="su.url">{{ su.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions class="flex flex-column justify-content-between align-items-center md:flex-row gap-3">
+      <div class="flex flex-column justify-content-end flex-1 md:flex-row gap-3">
+        <div class="flex flex-column justify-content-start align-items-center md:flex-row gap-3">
+          <button mat-flat-button type="button" color="accent" id="cancel" routerLink="/state">Cancelar
+          </button>
+          <button mat-flat-button type="button" color="primary"
+                  [disabled]="!formGroup.valid"
+                  (click)="saveOrUpdate()">Salvar
+          </button>
+        </div>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

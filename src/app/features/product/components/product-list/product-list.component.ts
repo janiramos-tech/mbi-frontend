@@ -1,29 +1,29 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {NavigationExtras, Router} from '@angular/router';
-import {StateService} from '../../service/state.service';
-import {StateDto} from '../../models/state.dto';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogComponent} from '../../../../shared/dialog/dialog.component';
+import {Product} from '../../models/product';
+import {ProductService} from '../../service/product.service';
 import {MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatFabButton, MatIconButton} from '@angular/material/button';
-import {MatDialog} from '@angular/material/dialog';
-import {DialogComponent} from '../../../../shared/dialog/dialog.component';
 
 @Component({
-  selector: 'app-state-list',
-  standalone: true,
+  selector: 'app-product-list',
   imports: [MatTableModule, MatIconModule, MatCardModule, MatIconButton, MatFabButton],
-  templateUrl: './state-list.component.html',
-  styleUrl: './state-list.component.scss'
+  standalone: true,
+  templateUrl: './product-list.component.html',
+  styleUrl: './product-list.component.scss'
 })
-export class StateListComponent implements OnInit{
+export class ProductListComponent implements OnInit{
 
-  private readonly stateService = inject(StateService);
+  private readonly productService = inject(ProductService);
   private readonly router = inject(Router);
 
-  displayedColumns: string[] = ['id', 'name', 'acoes'];
+  displayedColumns: string[] = ['id', 'name', 'supplier_name','acoes'];
   filter = '';
-  stateList: StateDto[] = [];
+  productList: Product[] = [];
 
   private readonly dialog= inject(MatDialog);
 
@@ -31,23 +31,20 @@ export class StateListComponent implements OnInit{
     this.loadData();
   }
   loadData(): void {
-    this.stateService.getAll({ filter: this.filter }).subscribe({
+    this.productService.getAll({ expand: this.filter }).subscribe({
       next: (data) => {
-        this.stateList = data.results;
-        console.log('Produtos carregados:', this.stateList);
+        this.productList = data.results;
       },
       error: (err) => console.error('Erro ao carregar lista:', err)
     });
   }
 
-
-
   openDeleteDialog(id: number): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: "600px",
       data: {
-        message: "Excluir Estado",
-        description: "Tem certeza que deseja excluir este estado? Esta ação não pode ser desfeita.",
+        message: "Excluir Produto",
+        description: "Tem certeza que deseja excluir este Produto? Esta ação não pode ser desfeita.",
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -60,25 +57,23 @@ export class StateListComponent implements OnInit{
   }
 
   deleteItem(id: number): void {
-    this.stateService.delete(id).subscribe({
+    this.productService.delete(id).subscribe({
       next: () => {
-        console.log('Produto excluído com sucesso');
-        this.loadData(); // Recarrega a lista
+        this.loadData();
       },
       error: (err) => console.error('Erro ao excluir:', err)
     });
   }
 
   updateProduct(idState: number): void {
-    console.log('Navegando para edição do produto com ID:', idState);
-    this.router.navigate(['/state', idState]).then();
+    this.router.navigate(['/product', idState]).then();
   }
 
   public goToPage(route: string): void {
-    // O merge garante que se você tiver filtros na URL, eles não sumam ao navegar
     const extras: NavigationExtras = { queryParamsHandling: "merge" };
     this.router.navigate([route], extras).then();
   }
+
 
 
 }

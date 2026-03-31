@@ -3,14 +3,13 @@ import {MAT_DIALOG_DATA, MatDialogRef, MatDialogActions, MatDialogClose, MatDial
 import {MatButton} from '@angular/material/button';
 
 export interface DialogData {
-  title: string;
-  message: string;
-  description: string;
+  message?: string;
+  description?: string;
 }
 
 @Component({
   selector: 'app-dialog',
-  imports: [MatDialogContent, MatDialogActions, MatButton, MatDialogClose],
+  imports: [MatDialogContent, MatDialogActions, MatButton],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.scss'
 })

@@ -1,6 +1,6 @@
 import {Routes} from "@angular/router";
 
-export const PRODUCTS_ROUTES: Routes = [
+export const STATE_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>

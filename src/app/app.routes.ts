@@ -14,7 +14,13 @@ export const routes: Routes = [
         path: 'state',
         loadChildren: () =>
           import('./features/state/state.routes')
-            .then(r => r.PRODUCTS_ROUTES)
+            .then(r => r.STATE_ROUTES)
+      },
+      {
+        path: 'product',
+        loadChildren: () =>
+          import('./features/product/product.routes')
+            .then(r => r.PRODUCT_ROUTES)
       },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
